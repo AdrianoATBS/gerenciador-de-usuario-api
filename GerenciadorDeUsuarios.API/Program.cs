@@ -2,6 +2,7 @@ using GerenciadorDeUsuarios.Application.Interfaces;
 using GerenciadorDeUsuarios.Application.UseCases.AlterarEmail;
 using GerenciadorDeUsuarios.Application.UseCases.AlterarNome;
 using GerenciadorDeUsuarios.Application.UseCases.CriarUsuario;
+using GerenciadorDeUsuarios.Application.UseCases.DeletarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DesativarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.ReativarUsuario;
 using GerenciadorDeUsuarios.Infrastructure.Data;
@@ -22,7 +23,7 @@ builder.Services.AddScoped<AlterarEmailUseCase>();
 builder.Services.AddScoped<AlterarNomeUseCase>();
 builder.Services.AddScoped<DesativarUsuarioUseCase>();
 builder.Services.AddScoped<ReativarUsuarioUseCase>();
-
+builder.Services.AddScoped<DeletarUsuarioUseCase>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 

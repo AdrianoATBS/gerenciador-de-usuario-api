@@ -40,4 +40,9 @@ public class UsuarioRepository : IUsuarioRepository
       return _context.Usuarios.Find(id);
        
     }
+    public void Deletar(Usuario usuario)
+    {
+        _context.Usuarios.Remove(usuario);
+        _context.SaveChanges();
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using GerenciadorDeUsuarios.Application.UseCases.AlterarEmail;
 using GerenciadorDeUsuarios.Application.UseCases.AlterarNome;
 using GerenciadorDeUsuarios.Application.UseCases.CriarUsuario;
+using GerenciadorDeUsuarios.Application.UseCases.DeletarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DesativarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.ReativarUsuario;
 using Microsoft.AspNetCore.Mvc;
@@ -16,16 +17,18 @@ public class UsuariosController : ControllerBase
     private readonly AlterarEmailUseCase _alterarEmail;
     private readonly DesativarUsuarioUseCase _desativarUsuario;
     private readonly ReativarUsuarioUseCase _reativarUsuario;
+    private readonly DeletarUsuarioUseCase _deletarUsuario;
     public UsuariosController(CriarUsuarioUseCase criarUsuario
         , AlterarNomeUseCase alterarNome, AlterarEmailUseCase alterarEmail,
         DesativarUsuarioUseCase desativarUsuario, ReativarUsuarioUseCase
-        reativarUsuario)
+        reativarUsuario, DeletarUsuarioUseCase deletarUsuario)
     {
         _criarUsuario = criarUsuario;
         _alterarNome = alterarNome;
         _alterarEmail = alterarEmail;
         _desativarUsuario = desativarUsuario;
         _reativarUsuario = reativarUsuario;
+        _deletarUsuario = deletarUsuario;
     }
 
     [HttpPost]
@@ -60,5 +63,12 @@ public class UsuariosController : ControllerBase
         _reativarUsuario.Executar(request);
         return Ok("Usuário reativado com sucesso!");
 
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeletarUsuario(Guid id)
+    {
+        _deletarUsuario.Executar(new DeletarUsuarioRequest { Id = id });
+        return Ok("Usuário deletado com sucesso!");
     }
 }
