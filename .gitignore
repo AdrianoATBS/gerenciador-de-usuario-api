@@ -34,3 +34,5 @@ secrets.json
 # Outros
 *.cache
 *.tmp
+
+sql-data/
