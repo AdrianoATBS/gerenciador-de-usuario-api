@@ -7,7 +7,7 @@ public class CriarUsuarioUseCase
 {
     private readonly IUsuarioRepository _usuarioRepository;
     private readonly IPasswordHasher _passwordHasher;
-
+    
     public CriarUsuarioUseCase(IUsuarioRepository usuarioRepository, 
         IPasswordHasher passwordHasher)
     {

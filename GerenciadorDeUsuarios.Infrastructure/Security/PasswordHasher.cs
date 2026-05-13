@@ -16,4 +16,13 @@ public class PasswordHasher : IPasswordHasher
 
 
     }
+
+    public bool Verificar(string senha, string senhaHash)
+    {
+        var hashDaSenha = Hash(senha);
+        byte[] bytesDoHashGerado = Encoding.UTF8.GetBytes(hashDaSenha);
+        byte[] bytesDoHashDoBanco = Encoding.UTF8.GetBytes(senhaHash);
+
+        return CryptographicOperations.FixedTimeEquals(bytesDoHashGerado, bytesDoHashDoBanco);
+    }
 }
