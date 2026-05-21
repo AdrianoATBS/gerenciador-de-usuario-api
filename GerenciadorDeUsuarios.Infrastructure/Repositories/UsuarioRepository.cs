@@ -45,4 +45,9 @@ public class UsuarioRepository : IUsuarioRepository
         _context.Usuarios.Remove(usuario);
         _context.SaveChanges();
     }
+
+    public Usuario? ObterPorEmail(string email)
+    {
+       return _context.Usuarios.FirstOrDefault(u => u.Email == email);
+    }
 }

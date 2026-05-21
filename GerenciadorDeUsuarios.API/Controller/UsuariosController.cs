@@ -3,13 +3,16 @@ using GerenciadorDeUsuarios.Application.UseCases.AlterarNome;
 using GerenciadorDeUsuarios.Application.UseCases.CriarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DeletarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DesativarUsuario;
+using GerenciadorDeUsuarios.Application.UseCases.LoginUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.ReativarUsuario;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorDeUsuarios.API.Controller;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class UsuariosController : ControllerBase
 {
     private readonly CriarUsuarioUseCase _criarUsuario;
@@ -18,10 +21,12 @@ public class UsuariosController : ControllerBase
     private readonly DesativarUsuarioUseCase _desativarUsuario;
     private readonly ReativarUsuarioUseCase _reativarUsuario;
     private readonly DeletarUsuarioUseCase _deletarUsuario;
+    private readonly LoginUsuarioUseCase _loginUsuario;
     public UsuariosController(CriarUsuarioUseCase criarUsuario
         , AlterarNomeUseCase alterarNome, AlterarEmailUseCase alterarEmail,
         DesativarUsuarioUseCase desativarUsuario, ReativarUsuarioUseCase
-        reativarUsuario, DeletarUsuarioUseCase deletarUsuario)
+        reativarUsuario, DeletarUsuarioUseCase deletarUsuario,
+        LoginUsuarioUseCase loginUsuario)
     {
         _criarUsuario = criarUsuario;
         _alterarNome = alterarNome;
@@ -29,8 +34,16 @@ public class UsuariosController : ControllerBase
         _desativarUsuario = desativarUsuario;
         _reativarUsuario = reativarUsuario;
         _deletarUsuario = deletarUsuario;
+        _loginUsuario = loginUsuario;
     }
-
+    [AllowAnonymous]
+    [HttpPost("login")]
+    public IActionResult Login(LoginUsuarioRequest request)
+    {
+        var token = _loginUsuario.Executar(request);
+        return Ok(token);
+    }
+    [AllowAnonymous]
     [HttpPost]
     public IActionResult CriarUsuario(CriarUsuarioRequest request)
     {
