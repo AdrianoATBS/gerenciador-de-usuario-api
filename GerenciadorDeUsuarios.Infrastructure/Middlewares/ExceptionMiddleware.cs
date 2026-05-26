@@ -46,6 +46,12 @@ public class ExceptionMiddleware
             exception.Message,
             false
             ),
+             UnauthorizedAccessException => (
+             StatusCodes.Status401Unauthorized,
+             "Acesso não autorizado",
+             exception.Message,
+             false
+            ),
             _ => (
             StatusCodes.Status500InternalServerError,
             "Ocorreu um erro inesperado",
