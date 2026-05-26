@@ -1,4 +1,5 @@
-﻿using GerenciadorDeUsuarios.Application.UseCases.AlterarEmail;
+﻿using Azure.Core;
+using GerenciadorDeUsuarios.Application.UseCases.AlterarEmail;
 using GerenciadorDeUsuarios.Application.UseCases.AlterarNome;
 using GerenciadorDeUsuarios.Application.UseCases.CriarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DeletarUsuario;
@@ -41,28 +42,33 @@ public class UsuariosController : ControllerBase
     public IActionResult Login(LoginUsuarioRequest request)
     {
         var token = _loginUsuario.Executar(request);
-        return Ok(token);
+        return Ok(new
+        {
+            AccessToken = token,
+            tokenType = "Bearer",
+            Expiraem = 3600
+        });
     }
     [AllowAnonymous]
     [HttpPost]
     public IActionResult CriarUsuario(CriarUsuarioRequest request)
     {
         _criarUsuario.Executar(request);
-        return Created(string.Empty, new {Message = "Usuário criado com sucesso"});
+        return Created(string.Empty, new { message = "Usuário criado com sucesso"});
     }
 
     [HttpPut("nome")]
     public IActionResult AlterarNome(AlterarNomeRequest request)
     {
         _alterarNome.Executar(request);
-        return Ok(new {Message = "Nome do usuário alterado com sucesso! "});
+        return Ok(new { message = "Nome do usuário alterado com sucesso! "});
     }
 
     [HttpPut("email")]
     public IActionResult AlterarEmail(AlterarEmailRequest request)
     {
         _alterarEmail.Executar(request);
-        return Ok(new {Message = "Email do usuário alterado com sucesso!"});
+        return Ok(new { message = "Email do usuário alterado com sucesso!"});
     }
     [HttpPut("desativar")]
     public IActionResult DesativarUsuario(DesativarUsuarioRequest request)
