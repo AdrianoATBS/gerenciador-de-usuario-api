@@ -48,33 +48,33 @@ public class UsuariosController : ControllerBase
     public IActionResult CriarUsuario(CriarUsuarioRequest request)
     {
         _criarUsuario.Executar(request);
-        return Ok("Usuário criado com sucesso!");
+        return Created(string.Empty, new {Message = "Usuário criado com sucesso"});
     }
 
     [HttpPut("nome")]
     public IActionResult AlterarNome(AlterarNomeRequest request)
     {
         _alterarNome.Executar(request);
-        return Ok("Nome do usuário alterado com sucesso!");
+        return Ok(new {Message = "Nome do usuário alterado com sucesso! "});
     }
 
     [HttpPut("email")]
     public IActionResult AlterarEmail(AlterarEmailRequest request)
     {
         _alterarEmail.Executar(request);
-        return Ok("Email do usuário alterado com sucesso!");
+        return Ok(new {Message = "Email do usuário alterado com sucesso!"});
     }
     [HttpPut("desativar")]
     public IActionResult DesativarUsuario(DesativarUsuarioRequest request)
     {
         _desativarUsuario.Executar(request);
-        return Ok("Usuário desativado com sucesso!");
+        return NoContent();
     }
     [HttpPut("reativar")]
     public IActionResult ReativarUsuario(ReativarUsuarioRequest request)
     {
         _reativarUsuario.Executar(request);
-        return Ok("Usuário reativado com sucesso!");
+        return NoContent();
 
     }
 
@@ -82,6 +82,6 @@ public class UsuariosController : ControllerBase
     public IActionResult DeletarUsuario(Guid id)
     {
         _deletarUsuario.Executar(new DeletarUsuarioRequest { Id = id });
-        return Ok("Usuário deletado com sucesso!");
+        return NoContent();
     }
 }
