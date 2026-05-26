@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using GerenciadorDeUsuarios.Infrastructure;
 using GerenciadorDeUsuarios.Application;
 using GerenciadorDeUsuarios.Infrastructure.Extensions;
+using GerenciadorDeUsuarios.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,9 +31,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
