@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using GerenciadorDeUsuarios.Application.UseCases.AlterarEmail;
 using GerenciadorDeUsuarios.Application.UseCases.AlterarNome;
+using GerenciadorDeUsuarios.Application.UseCases.BuscarTodosOsUsuarios;
 using GerenciadorDeUsuarios.Application.UseCases.CriarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DeletarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DesativarUsuario;
@@ -23,11 +24,12 @@ public class UsuariosController : ControllerBase
     private readonly ReativarUsuarioUseCase _reativarUsuario;
     private readonly DeletarUsuarioUseCase _deletarUsuario;
     private readonly LoginUsuarioUseCase _loginUsuario;
+    private readonly ObterUsuarioUseCase _obterUsuario;
     public UsuariosController(CriarUsuarioUseCase criarUsuario
         , AlterarNomeUseCase alterarNome, AlterarEmailUseCase alterarEmail,
         DesativarUsuarioUseCase desativarUsuario, ReativarUsuarioUseCase
         reativarUsuario, DeletarUsuarioUseCase deletarUsuario,
-        LoginUsuarioUseCase loginUsuario)
+        LoginUsuarioUseCase loginUsuario, ObterUsuarioUseCase obterUsuario)
     {
         _criarUsuario = criarUsuario;
         _alterarNome = alterarNome;
@@ -36,6 +38,7 @@ public class UsuariosController : ControllerBase
         _reativarUsuario = reativarUsuario;
         _deletarUsuario = deletarUsuario;
         _loginUsuario = loginUsuario;
+        _obterUsuario = obterUsuario;
     }
     [AllowAnonymous]
     [HttpPost("login")]
@@ -55,6 +58,16 @@ public class UsuariosController : ControllerBase
     {
         _criarUsuario.Executar(request);
         return Created(string.Empty, new { message = "Usuário criado com sucesso"});
+    }
+    [HttpGet("{id}")]
+    public IActionResult ObterUsuario(Guid id)
+    {
+       var response = _obterUsuario.Executar(new ObterUsuarioRequest 
+       { 
+           Id =  id
+       });
+        return Ok(response);
+
     }
 
     [HttpPut("nome")]

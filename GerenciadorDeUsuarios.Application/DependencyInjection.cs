@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using GerenciadorDeUsuarios.Application.UseCases.AlterarEmail;
 using GerenciadorDeUsuarios.Application.UseCases.AlterarNome;
+using GerenciadorDeUsuarios.Application.UseCases.BuscarTodosOsUsuarios;
 using GerenciadorDeUsuarios.Application.UseCases.CriarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DeletarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DesativarUsuario;
@@ -22,6 +23,7 @@ public static class DependencyInjection
         services.AddScoped<ReativarUsuarioUseCase>();
         services.AddScoped<DeletarUsuarioUseCase>();
         services.AddScoped<LoginUsuarioUseCase>();
+        services.AddScoped<ObterUsuarioUseCase>();
         return services;
     }
 
