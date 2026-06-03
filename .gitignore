@@ -25,7 +25,7 @@ Thumbs.db
 packages/
 
 # EF Core
-Migrations/*Snapshot.cs
+
 
 # Secrets
 appsettings.Development.json
@@ -36,3 +36,5 @@ secrets.json
 *.tmp
 
 sql-data/
+
+.env
