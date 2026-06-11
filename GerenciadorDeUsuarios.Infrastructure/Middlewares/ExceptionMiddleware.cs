@@ -23,7 +23,7 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         { 
             await HandleExceptionAsync(context, ex);
         }
