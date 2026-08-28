@@ -22,7 +22,19 @@ var connectionString = builder.Configuration.GetConnectionString
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(connectionString));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Desenvolvimento", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+
+});
+
 var app = builder.Build();
+app.UseCors("Desenvolvimento");
 
 if (app.Environment.IsDevelopment())
 {
