@@ -6,6 +6,7 @@ using GerenciadorDeUsuarios.Application.UseCases.CriarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DeletarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DesativarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.LoginUsuario;
+using GerenciadorDeUsuarios.Application.UseCases.ObterUsuarioJWT;
 using GerenciadorDeUsuarios.Application.UseCases.ReativarUsuario;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +25,7 @@ public static class DependencyInjection
         services.AddScoped<DeletarUsuarioUseCase>();
         services.AddScoped<LoginUsuarioUseCase>();
         services.AddScoped<ObterUsuarioUseCase>();
+        services.AddScoped<ObterUsuarioJWTUseCase>();
         return services;
     }
 

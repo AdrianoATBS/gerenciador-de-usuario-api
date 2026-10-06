@@ -6,6 +6,7 @@ using GerenciadorDeUsuarios.Application.UseCases.CriarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DeletarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.DesativarUsuario;
 using GerenciadorDeUsuarios.Application.UseCases.LoginUsuario;
+using GerenciadorDeUsuarios.Application.UseCases.ObterUsuarioJWT;
 using GerenciadorDeUsuarios.Application.UseCases.ReativarUsuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,13 @@ public class UsuariosController : ControllerBase
     private readonly DeletarUsuarioUseCase _deletarUsuario;
     private readonly LoginUsuarioUseCase _loginUsuario;
     private readonly ObterUsuarioUseCase _obterUsuario;
+    private readonly ObterUsuarioJWTUseCase _obterUsuarioJWT;
     public UsuariosController(CriarUsuarioUseCase criarUsuario
         , AlterarNomeUseCase alterarNome, AlterarEmailUseCase alterarEmail,
         DesativarUsuarioUseCase desativarUsuario, ReativarUsuarioUseCase
         reativarUsuario, DeletarUsuarioUseCase deletarUsuario,
-        LoginUsuarioUseCase loginUsuario, ObterUsuarioUseCase obterUsuario)
+        LoginUsuarioUseCase loginUsuario, ObterUsuarioUseCase obterUsuario,
+        ObterUsuarioJWTUseCase obterUsuarioJWT)
     {
         _criarUsuario = criarUsuario;
         _alterarNome = alterarNome;
@@ -39,6 +42,7 @@ public class UsuariosController : ControllerBase
         _deletarUsuario = deletarUsuario;
         _loginUsuario = loginUsuario;
         _obterUsuario = obterUsuario;
+        _obterUsuarioJWT = obterUsuarioJWT;
     }
     [AllowAnonymous]
     [HttpPost("login")]
@@ -68,6 +72,13 @@ public class UsuariosController : ControllerBase
        });
         return Ok(response);
 
+    }
+
+    [HttpGet("me")]
+    public IActionResult ObterUsuarioLogado()
+    {
+        var response = _obterUsuarioJWT.Executar();
+        return Ok(response);
     }
 
     [HttpPut("nome")]
