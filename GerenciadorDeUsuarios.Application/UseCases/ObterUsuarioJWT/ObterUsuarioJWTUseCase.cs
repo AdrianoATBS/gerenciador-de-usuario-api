@@ -11,13 +11,13 @@ public class ObterUsuarioJWTUseCase
     }
     public ObterUsuarioJWTResponse Executar()
     {
-        var usuarioId = _userContext.ObterUsuarioAutenticado();
-
+        var usuarioId= _userContext.ObterUsuarioAutenticado();
 
         return new ObterUsuarioJWTResponse
         {
             Nome = usuarioId.Nome,
-            Email = usuarioId.Email
+            Email = usuarioId.Email,
+            CriadoEm = usuarioId.CriadoEm
         };
     }
 }

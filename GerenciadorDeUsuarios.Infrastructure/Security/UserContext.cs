@@ -14,7 +14,7 @@ public class UserContext : IUserContext
 
 
 
-    UsuarioAutenticado IUserContext.ObterUsuarioAutenticado()
+    public UsuarioAutenticado ObterUsuarioAutenticado()
     {
         var user = _httpContextAccessor.HttpContext?.User;
         var claimId = user?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -25,7 +25,8 @@ public class UserContext : IUserContext
             {
                 Id = userId,
                 Nome = user?.FindFirst(ClaimTypes.Name)?.Value ?? string.Empty,
-                Email = user?.FindFirst(ClaimTypes.Email)?.Value ?? string.Empty
+                Email = user?.FindFirst(ClaimTypes.Email)?.Value ?? string.Empty,
+                CriadoEm = user?.FindFirst("CriadoEm")?.Value ?? string.Empty
             };
         }
 

@@ -23,6 +23,7 @@ public class JwtTokenService : ITokenService
             new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
             new Claim(ClaimTypes.Name, usuario.Nome),
             new Claim(ClaimTypes.Email,usuario.Email),
+            new Claim("CriadoEm", usuario.CriadoEm.ToString("o"))
         };
 
         var chaveSecreta = _configuration["JwtSettings:SecretKey"] ;
