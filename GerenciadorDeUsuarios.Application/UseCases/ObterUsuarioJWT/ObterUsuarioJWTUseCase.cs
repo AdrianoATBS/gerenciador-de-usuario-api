@@ -15,6 +15,7 @@ public class ObterUsuarioJWTUseCase
 
         return new ObterUsuarioJWTResponse
         {
+            Id = usuarioId.Id,
             Nome = usuarioId.Nome,
             Email = usuarioId.Email,
             CriadoEm = usuarioId.CriadoEm
